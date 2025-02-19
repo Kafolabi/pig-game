@@ -15,32 +15,53 @@ const btnReset = document.querySelector(".btn--new");
 let scores, currentScore, activePlayer, playing;
 
 const init = () => {
-  scores = [0, 0];
+  // Retrieve scores and active player from localStorage or set defaults
+  scores = [
+    localStorage.getItem("score0") ? +localStorage.getItem("score0") : 0,
+    localStorage.getItem("score1") ? +localStorage.getItem("score1") : 0,
+  ];
+  activePlayer = localStorage.getItem("activePlayer")
+    ? +localStorage.getItem("activePlayer")
+    : 0;
   currentScore = 0;
-  activePlayer = 0;
   playing = true;
 
-  score0El.textContent = 0;
-  score1El.textContent = 0;
+  // Update UI
+  score0El.textContent = scores[0];
+  score1El.textContent = scores[1];
   current0El.textContent = 0;
   current1El.textContent = 0;
 
   diceEl.classList.add("hidden");
   player0El.classList.remove("player--winner");
   player1El.classList.remove("player--winner");
-  player0El.classList.add("player--active");
+  player0El.classList.remove("player--active");
   player1El.classList.remove("player--active");
-};
-init();
 
+  // Set active player UI
+  document
+    .querySelector(`.player--${activePlayer}`)
+    .classList.add("player--active");
+};
+
+// Function to persist scores and active player in localStorage
+const persistGameState = () => {
+  localStorage.setItem("score0", scores[0]);
+  localStorage.setItem("score1", scores[1]);
+  localStorage.setItem("activePlayer", activePlayer);
+};
+
+// Function to switch players
 const switchPlayer = () => {
   document.getElementById(`current--${activePlayer}`).textContent = 0;
   activePlayer = activePlayer === 0 ? 1 : 0;
   currentScore = 0;
+  persistGameState(); // Save new active player state
   player0El.classList.toggle("player--active");
   player1El.classList.toggle("player--active");
 };
 
+// Function to roll the dice
 const rollDice = () => {
   if (playing) {
     const dice = Math.trunc(Math.random() * 6) + 1;
@@ -57,11 +78,14 @@ const rollDice = () => {
   }
 };
 
+// Function to hold score
 const holdDice = () => {
   if (playing) {
     scores[activePlayer] += currentScore;
     document.getElementById(`score--${activePlayer}`).textContent =
       scores[activePlayer];
+
+    persistGameState(); // Save scores and active player
 
     if (scores[activePlayer] >= 100) {
       playing = false;
@@ -78,6 +102,18 @@ const holdDice = () => {
   }
 };
 
+// Function to reset the game
+const resetGame = () => {
+  localStorage.setItem("score0", 0);
+  localStorage.setItem("score1", 0);
+  localStorage.setItem("activePlayer", 0);
+  init();
+};
+
+// Initialize the game
+init();
+
+// Event listeners
 rollDiceBtn.addEventListener("click", rollDice);
 holdDiceBtn.addEventListener("click", holdDice);
-btnReset.addEventListener("click", init);
+btnReset.addEventListener("click", resetGame);
