@@ -30,11 +30,11 @@ This project is licensed under the MIT License.
 
 ## Author
 
-Stephen Afolabi
+Kolade Afolabi
 
 ## Acknowledgments
 
-Thanks to the JavaScript, HTML, and CSS communities for their hard work and dedication to open-source software.
+Acknowledgments to Jonas Schmedtmann. Implemented from his Javascript course with additional functionality
 
 ## Contributing
 
