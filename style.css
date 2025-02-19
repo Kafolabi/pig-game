@@ -3,12 +3,11 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 html {
   font-size: 62.5%;
-  box-sizing: border-box;
 }
 
 body {
@@ -29,11 +28,11 @@ main {
   height: 60rem;
   background-color: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(200px);
-  filter: blur();
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25);
   border-radius: 9px;
   overflow: hidden;
   display: flex;
+  flex-direction: row;
 }
 
 .player {
@@ -45,7 +44,6 @@ main {
   transition: all 0.75s;
 }
 
-/* ELEMENTS */
 .name {
   position: relative;
   font-size: 4rem;
@@ -73,10 +71,6 @@ main {
   font-weight: 400;
 }
 
-.player--active .current {
-  opacity: 1;
-}
-
 .current {
   background-color: #c7365f;
   opacity: 0.8;
@@ -99,7 +93,7 @@ main {
   font-size: 3.5rem;
 }
 
-/* ABSOLUTE POSITIONED ELEMENTS */
+/* BUTTONS */
 .btn {
   position: absolute;
   left: 50%;
@@ -113,20 +107,11 @@ main {
   cursor: pointer;
   font-weight: 400;
   transition: all 0.2s;
-
-  background-color: white;
   background-color: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
-
   padding: 0.7rem 2.5rem;
   border-radius: 50rem;
   box-shadow: 0 1.75rem 3.5rem rgba(0, 0, 0, 0.1);
-}
-
-.btn::first-letter {
-  font-size: 2.4rem;
-  display: inline-block;
-  margin-right: 0.7rem;
 }
 
 .btn--new {
@@ -137,15 +122,6 @@ main {
 }
 .btn--hold {
   top: 46.1rem;
-}
-
-.btn:active {
-  transform: translate(-50%, 3px);
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
-}
-
-.btn:focus {
-  outline: none;
 }
 
 .dice {
@@ -165,6 +141,112 @@ main {
   font-weight: 700;
   color: #c7365f;
 }
+
 .hidden {
   display: none;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+    padding: 2rem;
+  }
+
+  .player {
+    padding: 1rem;
+    padding-bottom: 6rem;
+    width: 100%;
+  }
+
+  .name {
+    font-size: 3rem;
+    margin-top: 5rem;
+  }
+
+  .score {
+    font-size: 6rem;
+  }
+
+  .current {
+    padding: 1.5rem;
+    width: 80%;
+  }
+
+  .current-score {
+    font-size: 3rem;
+  }
+
+  .btn {
+    font-size: 1.5rem;
+    padding: 0.5rem 2rem;
+  }
+
+  .dice {
+    height: 8rem;
+    top: 35rem;
+  }
+
+  .btn--roll {
+    top: 30rem;
+    /* left: 10rem !important; */
+    margin-bottom: 5rem;
+  }
+
+  .btn--hold {
+    top: 44rem;
+    right: rem !important;
+    margin-bottom: 5rem;
+    /* right: 10rem; */
+  }
+
+  #name--1 {
+    margin-top: 10rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .name {
+    font-size: 2.5rem;
+    margin-top: 5rem;
+  }
+
+  .score {
+    font-size: 5rem;
+  }
+
+  .current-score {
+    font-size: 2.5rem;
+  }
+
+  .btn {
+    font-size: 1.3rem;
+  }
+
+  .dice {
+    top: 34rem;
+  }
+
+  .btn--roll {
+    top: 30rem;
+  }
+
+  .btn--roll {
+    top: 30rem;
+    /* left: 10rem !important; */
+    margin-bottom: 5rem;
+  }
+
+  .btn--hold {
+    top: 43rem;
+    right: rem !important;
+    margin-bottom: 5rem;
+    /* right: 10rem; */
+  }
+
+  #name--1 {
+    margin-top: 13rem;
+  }
 }
